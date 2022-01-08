@@ -1,18 +1,49 @@
+<script setup lang="ts">
+import {  ref } from "vue";
+import { connectMetamaskWallet } from "../Web3/web3";
+import { uploadFile } from "../services/pinata";
+import { createNFT, fetchAllNFT } from "../services/nft";
+
+const file = ref<File>();
+
+function onFileChange(event: Event) {
+  const target = event.target as HTMLInputElement;
+  const files = target.files;
+  if (!files) {
+    return;
+  }
+  file.value = files[0];
+}
+
+async function upload() {
+  if (!file.value) return;
+  const data = await uploadFile(file.value);
+  await createNFT(data.IpfsHash);
+}
+
+const imgs = ref<string[]>([]);
+const tokenIdSelect = ref("");
+async function showNFT() {
+  const url = await fetchAllNFT(tokenIdSelect.value);
+  if (url) imgs.value.push(url);
+}
+
+</script>
+
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div>
+    <div>
+      <button @click="connectMetamaskWallet">Connect wallet</button>
+    </div>
+    <input type="file" name="" id="" @change="onFileChange($event)" />
+    <button @click="upload">Create NFT</button>
+
+    <input v-model="tokenIdSelect" type="text" />
+    <button @click="showNFT">Show NFT</button>
+
+    <img v-for="(img, index) in imgs" :key="index" :src="img" alt="" />
   </div>
+  
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-
-export default defineComponent({
-  name: 'Home',
-  components: {
-    HelloWorld,
-  },
-});
-</script>
+<style lang="scss" scoped></style>
