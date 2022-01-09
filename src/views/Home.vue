@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {  ref } from "vue";
+import { ref } from "vue";
 import { connectMetamaskWallet } from "../Web3/web3";
 import { uploadFile } from "../services/pinata";
 import { createNFT, fetchAllNFT } from "../services/nft";
@@ -27,23 +27,26 @@ async function showNFT() {
   const url = await fetchAllNFT(tokenIdSelect.value);
   if (url) imgs.value.push(url);
 }
-
 </script>
 
 <template>
   <div>
     <div>
-      <button @click="connectMetamaskWallet">Connect wallet</button>
+      <button @click="connectMetamaskWallet">Connect Wallet</button>
     </div>
-    <input type="file" name="" id="" @change="onFileChange($event)" />
-    <button @click="upload">Create NFT</button>
-
-    <input v-model="tokenIdSelect" type="text" />
-    <button @click="showNFT">Show NFT</button>
+    <hr />
+    <div>
+      <input type="file" name="" id="" @change="onFileChange($event)" />
+      <button @click="upload">Create NFT</button>
+    </div>
+    <hr>
+    <div>
+      <input v-model="tokenIdSelect" type="text" />
+      <button @click="showNFT">Show NFT</button>
+    </div>
 
     <img v-for="(img, index) in imgs" :key="index" :src="img" alt="" />
   </div>
-  
 </template>
 
 <style lang="scss" scoped></style>

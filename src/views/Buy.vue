@@ -64,14 +64,14 @@ onMounted(async () => {
 </script>
 
 <template>
+Connect Smart Contract to Target Wallet
   <div style="display: flex; flex-direction: column">
     <button @click="approveToken">approve</button>
-
+    <hr>
     <div>
       <label for="">Buy TokenId</label>
       <input v-model="buyTokenId" type="text" />
     </div>
-
     <button @click="buy">Buy</button>
   </div>
 </template>

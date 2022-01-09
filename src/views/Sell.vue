@@ -67,10 +67,10 @@ function sell() {
 </script>
 
 <template>
-  asdfasfs
+  Connect Smart Contract to Target Wallet
   <div style="display: flex; flex-direction: column" class="about">
     <button @click="approveToExchange">Approve</button>
-    
+    <hr>
     <div><label for="">token id to be sell</label><input v-model="tokenIdToBeSell" type="text"></div>
     <button @click="sell">Sell</button>
   </div>
